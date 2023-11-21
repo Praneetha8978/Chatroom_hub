@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import {Button,Drawer} from 'rsuite';
 import DashboardIcon from '@rsuite/icons/Dashboard';
-import { useModelState } from '../misc/custom-hooks';
-import { auth } from '../misc/firebase';
+import { useModelState } from '../../misc/custom-hooks';
+import { auth } from '../../misc/firebase';
 import Dashboard from '.';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
