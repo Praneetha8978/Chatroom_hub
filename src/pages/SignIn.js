@@ -7,7 +7,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { auth,database } from '../misc/firebase';
 import Swal from 'sweetalert2';
 import { serverTimestamp } from 'firebase/database';
-import {ref, set, get } from 'firebase/database';
+import { ref, set, get } from 'firebase/database';
 
 const SignIn = () => {
 
@@ -21,6 +21,7 @@ const SignIn = () => {
       if (!snapshot.exists()) {
         await set(userRef, {
           name: user.displayName,
+          email: user.email,
           createdAt: serverTimestamp(),
         });
       }

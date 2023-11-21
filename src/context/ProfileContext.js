@@ -9,40 +9,48 @@ export const ProfileContext = ({children}) => {
     const [profile,setProfile] = useState(null);
     const [isLoading,setIsLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         let userRef = null;
-        let onValueChange = null;
-
+    
         const unsub = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userRef = ref(database, `/profiles/${user.uid}`);
-                onValueChange = onValue(userRef, (snapshot) => {
-                    const {name,createdAt} = snapshot.val();
-                    const data = {
-                        name : name,
-                        createdAt : createdAt,
-                        email : user.email,
-                        uid : user.uid
-                    }
-                    setProfile(data);
-                    setIsLoading(false);
-                });
-            } else {
-              if(userRef){
-                off(onValueChange);
-              }
+        console.log('Auth State Changed:', user);
+        if (user) {
+          userRef = ref(database, `/profiles/${user.uid}`);
+          const onValueChange = onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+    
+            if (data) {
+              const { name, createdAt } = data;
+              console.log(name, createdAt);
+              const userData = {
+                name: name,
+                createdAt: createdAt,
+                email: user.email,
+                uid: user.uid,
+              };
+              setProfile(userData);
+            }else {
               setProfile(null);
-              setIsLoading(false);
             }
+    
+            setIsLoading(false);
           });
-
-          return ()=>{
-            unsub();
-            if(userRef){
-               off(onValueChange);
+          } else {
+            if (userRef) {
+              off(userRef);
             }
+            setProfile(null);
+            setIsLoading(false);
           }
-    },[])
+        });
+    
+        return () => {
+          unsub();
+          if (userRef) {
+            off(userRef);
+          }
+        };
+      }, []);
 
     return(
         <div>

@@ -6,6 +6,7 @@ import {Container,Loader} from 'rsuite';
 
 
 const PrivateRoute = () => {
+    
     const {profile,isLoading} = useContext(ProContext);
 
     if(isLoading && !profile){
@@ -22,7 +23,8 @@ const PrivateRoute = () => {
     }
     return (
         <div>
-            {profile ? <Home/> : <Navigate to="/signin"/>}
+            {console.log("profile"+" "+profile)}
+            {profile!=null ? <Home/> : <Navigate to="/signin"/>}
         </div>
     );
 };
