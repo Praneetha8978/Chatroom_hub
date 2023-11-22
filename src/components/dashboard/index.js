@@ -5,6 +5,7 @@ import EditableInput from '../EditableInput';
 import '../../styles/main.scss';
 import {database} from '../../misc/firebase';
 import {ref,set} from 'firebase/database';
+import ProviderBlock from './ProviderBlock';
 
 const Dashboard = ({onSignOut}) => {
   const {profile} = useContext(ProContext);
@@ -31,6 +32,7 @@ const Dashboard = ({onSignOut}) => {
           padding: 0,
         }}>
         <h3>Hey, {profile.name}</h3>
+        <ProviderBlock/>
         <Divider/>
         <EditableInput initialValue = {profile.name} onSave = {onSave} label = {<h6 className='mb-2'>Nickname</h6>} name = "nickname"/>
         <Button block color='red' appearance='primary' style={{ position: 'absolute', bottom: '0'}} onClick={onSignOut} >
