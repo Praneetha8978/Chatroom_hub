@@ -6,6 +6,9 @@ import '../../styles/main.scss';
 import {database} from '../../misc/firebase';
 import {ref,set} from 'firebase/database';
 import ProviderBlock from './ProviderBlock';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AvatarUploadBtn from './AvatarUploadBtn';
 
 const Dashboard = ({onSignOut}) => {
   const {profile} = useContext(ProContext);
@@ -13,10 +16,16 @@ const Dashboard = ({onSignOut}) => {
     const userRef = ref(database, `/profiles/${profile.uid}/name`);
     set(userRef, newData)
     .then(() => {
-      console.log('User name set successfully');
+      toast.success('User name set successfully', {
+        position: toast.POSITION.TOP_CENTER, 
+        autoClose: 3000,
+      });
     })
     .catch((error) => {
-      console.error('Error setting user name:', error.message);
+      toast.error(`Error: ${error.message}`, {
+        position: toast.POSITION.TOP_CENTER, 
+        autoClose: 3000, 
+      });
     });
   }
 
@@ -35,11 +44,12 @@ const Dashboard = ({onSignOut}) => {
         <ProviderBlock/>
         <Divider/>
         <EditableInput initialValue = {profile.name} onSave = {onSave} label = {<h6 className='mb-2'>Nickname</h6>} name = "nickname"/>
+        <AvatarUploadBtn/>
         <Button block color='red' appearance='primary' style={{ position: 'absolute', bottom: '0'}} onClick={onSignOut} >
           Sign Out
         </Button>
       </Drawer.Body>
-      
+      <ToastContainer />
     </>
   )
 }

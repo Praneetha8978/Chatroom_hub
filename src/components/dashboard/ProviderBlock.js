@@ -4,6 +4,8 @@ import {Tag,Button} from 'rsuite';
 import { FaGoogle } from 'react-icons/fa';
 import { GoogleAuthProvider,FacebookAuthProvider,linkWithPopup,unlink} from 'firebase/auth';
 import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProviderBlock = () => {
   const [isConnected,setIsConnected] = useState({
@@ -28,10 +30,16 @@ const ProviderBlock = () => {
 
             await unlink(auth.currentUser, providerId);
             updateIsConnected(providerId,false);
-            alert(`disconnected from ${providerId}`);
+            toast.success(`disconnected from ${providerId}`, {
+                position: toast.POSITION.TOP_CENTER, 
+                autoClose: 3000,
+              });
 
         }catch(error){
-            alert(error);
+            toast.error(`Error: ${error.message}`, {
+                position: toast.POSITION.TOP_CENTER, 
+                autoClose: 3000, 
+              });
         }
     }
     const unlinkGoogle = () => {
@@ -43,10 +51,16 @@ const ProviderBlock = () => {
     const link = async(provider) => {
         try{
             await linkWithPopup(auth.currentUser, provider);
-            alert(`Linked to ${provider.providerId}`);
+            toast.success(`Linked to ${provider.providerId}`, {
+                position: toast.POSITION.TOP_CENTER, 
+                autoClose: 3000,
+              });
             updateIsConnected(provider.providerId,true);
         }catch(error){
-            alert(error);
+            toast.error(`Error: ${error.message}`, {
+                position: toast.POSITION.TOP_CENTER, 
+                autoClose: 3000, 
+              });
         }
     }
     const linkGoogle = () => {
@@ -85,6 +99,7 @@ const ProviderBlock = () => {
             </Button>
         }
       </div>
+      <ToastContainer />
     </div>
   )
 }

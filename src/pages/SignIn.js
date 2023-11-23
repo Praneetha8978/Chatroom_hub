@@ -8,6 +8,8 @@ import { auth,database } from '../misc/firebase';
 import Swal from 'sweetalert2';
 import { serverTimestamp } from 'firebase/database';
 import { ref, set, get } from 'firebase/database';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = () => {
 
@@ -73,6 +75,7 @@ const SignIn = () => {
                     </Row>
                 </Grid>
             </Container>
+            <ToastContainer />
         </div>
     )
 }
