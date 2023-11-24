@@ -20,11 +20,12 @@ export const ProfileContext = ({children}) => {
             const data = snapshot.val();
     
             if (data) {
-              const { name, createdAt } = data;
+              const { name, createdAt,avatar } = data;
               console.log(name, createdAt);
               const userData = {
                 name: name,
                 createdAt: createdAt,
+                avatar : avatar,
                 email: user.email,
                 uid: user.uid,
               };

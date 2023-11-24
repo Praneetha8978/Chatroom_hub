@@ -9,7 +9,9 @@ import {storage,database} from '../../misc/firebase';
 import {ref as databaseRef,set} from 'firebase/database';
 import {ref as storageRef,uploadBytes,getDownloadURL} from 'firebase/storage';
 import { ProContext } from '../../context/ProfileContext';
-
+import ProfileAvatar from '../ProfileAvatar';
+import '../../styles/main.scss';
+import '../../styles/utility.scss';
 
 const fileInputTypes = ".png, .jpeg, .jpg";
 const acceptedFileTypes = ['image/png','image/jpeg','image/pjpeg']
@@ -77,6 +79,7 @@ const AvatarUploadBtn = () => {
   }
   return (
     <div className='mt-3 text-center'>
+      <ProfileAvatar src = {profile.avatar} name = {profile.name} className = "width-200 height-200 img-fullsize font-huge"/>
        <div>
         <label htmlFor='avatar-upload' className='d-block cursor-pointer padded'>
           Select new avatar
