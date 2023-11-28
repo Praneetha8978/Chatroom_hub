@@ -14,7 +14,7 @@ import '../../styles/main.scss';
 import '../../styles/utility.scss';
 
 const fileInputTypes = ".png, .jpeg, .jpg";
-const acceptedFileTypes = ['image/png','image/jpeg','image/pjpeg']
+const acceptedFileTypes = ['image/png','image/jpeg','image/pjpeg','image/jpg']
 const isValidFile = (file) => acceptedFileTypes.includes(file.type);
 const getBlob = (canvas) => {
   return new Promise((resolve,reject)=>{

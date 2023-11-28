@@ -9,7 +9,7 @@ const Home = () => {
                 <Row>
                     <Col xs = {24} md = {8}>
                         <Sidebar/>
-                        Home....
+                        {/* Home.... */}
                     </Col>
                 </Row>
            </Grid>
