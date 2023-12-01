@@ -21,18 +21,42 @@ body,
   height: 100%;
 }
 
-.custom-scroll {
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
+.overflow-y-scroll {
+  overflow-y: auto;
+}
 
-  &::-webkit-scrollbar-track {
-    background: #ddd;
+.custom-scroll {
+  /* Customize the scrollbar appearance */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f0f0f0;
+  height: calc(100% - 108px);
+
+  /* For WebKit browsers */
+  &::-webkit-scrollbar {
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: darken(#ddd, 20%);
+    background-color: #ccc;
+    border-radius: 4px;
   }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
+}
+
+.room-item {
+  display: flex;
+  flex-direction: column; /* Ensures the children stack vertically */
+}
+
+.time-ago {
+  margin-left: 290px !important;
+}
+
+.chat-room-list-wrapper {
+  height: 100%;
 }
 
 .img-fullsize {

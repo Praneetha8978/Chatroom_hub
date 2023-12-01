@@ -9,14 +9,14 @@ function App() {
   
   return (
     <div>
-      <ProfileContext>
-        <Router>
+      <Router>
+        <ProfileContext>
           <Routes>
             <Route path = "/signin" element = {<PublicRoute />}/>
             <Route path = "/" element = {<PrivateRoute />}/>
           </Routes>
-        </Router>
-      </ProfileContext>
+        </ProfileContext>
+      </Router>
     </div>
   );
 }
