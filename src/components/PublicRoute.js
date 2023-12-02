@@ -1,31 +1,32 @@
-import React, { useContext, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import React,{useContext} from 'react';
+import {Navigate} from 'react-router-dom';
 import SignIn from '../pages/SignIn';
 import { ProContext } from '../context/ProfileContext';
-import { Container, Loader } from 'rsuite';
+import {Container,Loader} from 'rsuite';
+
 
 const PublicRoute = () => {
-  const { profile, isLoading } = useContext(ProContext);
 
-  useEffect(() => {
-    if (!isLoading && profile) {
-      // Redirect to the home page
-      Navigate('/');
+    const {profile,isLoading} = useContext(ProContext);
+
+    if(isLoading && !profile){
+        return (
+            <div>
+                <Container>
+                    <Loader center vertical size="md" content="Loading..." speed="slow" />
+                </Container>
+            </div>
+        );
     }
-  }, [isLoading, profile]);
-
-  if (isLoading) {
+    if(!isLoading && profile){
+        return <Navigate to = "/"/>
+    }
     return (
-      <div>
-        <Container>
-          <Loader center vertical size="md" content="Loading..." speed="slow" />
-        </Container>
-      </div>
+        <div>
+            {console.log("profile"+" "+profile)}
+            {profile!=null ? <Navigate to="/"/> : <SignIn/>}
+        </div>
     );
-  }
-
-  // Render the Sign In component if the user is not authenticated
-  return profile ? null : <SignIn />;
 };
 
 export default PublicRoute;

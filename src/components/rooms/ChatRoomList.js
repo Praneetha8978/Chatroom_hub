@@ -4,9 +4,11 @@ import RoomItem from './RoomItem';
 import '../../styles/main.scss';
 import '../../styles/utility.scss';
 import { RoomsContext } from '../../context/rooms.context';
+import { Link,useLocation } from 'react-router-dom';
 
 const ChatRoomList = ({ aboveElHeight }) => {
   const rooms = useContext(RoomsContext);
+  const location = useLocation();
 
   return (
     <div>
@@ -15,30 +17,28 @@ const ChatRoomList = ({ aboveElHeight }) => {
         vertical
         reversed
         className="overflow-y-scroll custom-scroll"
-        style={{
-          height: `calc(100% - ${aboveElHeight}px )`,
-        }}
+        activeKey={location.pathname}
       >
         {!rooms && (
           <Loader
             center
             vertical
-            content="Loading...."
+            content="Loading..."
             speed="slow"
             size="md"
           />
         )}
         {rooms &&
           rooms.length > 0 &&
-          rooms.map(room => {
-            return(
-              <Nav.Item key={room.id} componentClass="div">
-                <RoomItem id = {room.id} name={room.name} createdAt={room.createdAt} />
-              </Nav.Item>
-            )
-          }
-            
-          )}
+          rooms.map((room) => (
+            <Nav.Item key={room.id} as={Link} to={`/chat/${room.id}`} eventKey = {`/chat/${room.id}`}>
+              <RoomItem
+                id={room.id}
+                name={room.name}
+                createdAt={room.createdAt}
+              />
+            </Nav.Item>
+          ))}
       </Nav>
     </div>
   );

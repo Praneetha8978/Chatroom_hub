@@ -10,6 +10,8 @@ import { serverTimestamp } from 'firebase/database';
 import { ref, set, get } from 'firebase/database';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavigateButtons from './NavigateButtons';
+
 
 const SignIn = () => {
 
@@ -53,6 +55,7 @@ const SignIn = () => {
 
     return(
         <div>
+            <NavigateButtons/>
             <Container>
                 <Grid className='mt-page'>
                     <Row>

@@ -16,7 +16,7 @@ export const ProfileContext = ({children}) => {
         console.log('Auth State Changed:', user);
         if (user) {
           userRef = ref(database, `/profiles/${user.uid}`);
-          const onValueChange = onValue(userRef, (snapshot) => {
+          const onValueChange = onValue(userRef, async (snapshot) => {
             const data = snapshot.val();
     
             if (data) {
@@ -29,7 +29,8 @@ export const ProfileContext = ({children}) => {
                 email: user.email,
                 uid: user.uid,
               };
-              setProfile(userData);
+              await setProfile(userData);
+              console.log("username in pc"+" "+userData.name)
             }else {
               setProfile(null);
             }
