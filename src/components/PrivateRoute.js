@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import {Navigate} from 'react-router-dom';
-import Home from '../pages/Home';
+import Home from '../pages/Home/index';
 import { ProContext } from '../context/ProfileContext';
 import {Container,Loader} from 'rsuite';
 

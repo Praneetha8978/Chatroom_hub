@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Logins.css';
+import {IconButton,ButtonToolbar,Button} from 'rsuite';
 
 const NavigateButtons = () => {
   const navigate = useNavigate();
@@ -13,13 +14,15 @@ const NavigateButtons = () => {
     navigate('/signup');
   };
   return (
-    <div className="top-right-buttons">
-      <button onClick={handleSignInClick} className="button1">
-        LOGIN
-      </button>
-      <button onClick={handleSignUpClick} className="button2">
-        Sign Up
-      </button>
+    <div>
+      <ButtonToolbar className="top-right-buttons">
+        <Button  appearance="primary" >
+          SIGNUP
+        </Button>
+        <Button  appearance="primary" >
+          LOGIN
+        </Button>
+      </ButtonToolbar>
     </div>
   )
 }

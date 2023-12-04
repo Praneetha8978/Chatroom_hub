@@ -7,10 +7,7 @@ import PublicRoute from './components/PublicRoute';
 import { ProfileContext } from './context/ProfileContext';
 import LogIn from './pages/logins/LogIn/LogIn';
 import SignUp from './pages/logins/SignUp/SignUp';
-import Home from './pages/Home';
-import { useEffect, useState } from 'react';
-import {auth} from './misc/firebase';
-import {onAuthStateChanged} from 'firebase/auth';
+import Home from './pages/Home/index';
 
 
 function App() {
@@ -24,7 +21,7 @@ function App() {
             <Route path = "/" element = {<PrivateRoute />}/>
             <Route path = "/login" element = {<LogIn />}/>
             <Route path = "/signup" element = {<SignUp />}/>
-            <Route path="/chat/*" element={<Home />} />
+            <Route path = "*" element={<Home />} />
           </Routes>
         </ProfileContext>
       </Router>
