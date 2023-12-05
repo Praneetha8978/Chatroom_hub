@@ -6,6 +6,7 @@ import ChatBottom from '../../components/chat-window/bottom/index';
 import Messages from '../../components/chat-window/messages/index';
 import '../../styles/main.scss';
 import { RoomsContext } from '../../context/rooms.context';
+import { CurrentRoomProvider } from '../../context/current-room.context';
 
 const Chat = () => {
 
@@ -16,13 +17,16 @@ const Chat = () => {
   }
 
   const currentRoom = rooms.find(room => room.id === chatId);
-
+  const {name,description} = currentRoom;
+  const currentRoomData = {
+    name,description
+  }
   if(!currentRoom){
     return <h6 className='text-center mt-page'>Chat {chatId} not found</h6>
   }
     
   return (
-    <>
+    <CurrentRoomProvider data = {currentRoomData}>
       <div className='chat-top'>
         <ChatTop/>
       </div>
@@ -32,7 +36,7 @@ const Chat = () => {
       <div className='chat-bottom' style={{ position: 'fixed', bottom: 0, width: '100%' }}>
         <ChatBottom/>
       </div>
-    </>
+    </CurrentRoomProvider>
   )
 }
 

@@ -59,7 +59,7 @@ const LogIn = () => {
                 <b className={styles.error}>{errorMsg}</b>
                 <button onClick={handleSubmission} disabled={submitButtonDisabled}>Login</button>
                 <p>Already have an account?{" "}
-                <span><Link to = "/signup">SignUp</Link></span>
+                <span><Link to = "/signin">LogOut</Link></span>
                 </p>
             </div>
         </div>

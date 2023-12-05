@@ -4,7 +4,7 @@ import InputControl from '../InputControl/InputControl';
 import {Link,useNavigate} from 'react-router-dom';
 import {auth} from '../../../misc/firebase';
 import {createUserWithEmailAndPassword,updateProfile} from 'firebase/auth';
-
+import '../../../pages/Logins.css';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -41,7 +41,8 @@ const SignUp = () => {
   }
   
   return (
-    <div className={styles.container}>
+    
+      <div className={styles.container}>
         <div className={styles.innerBox}>
             <h1 className={styles.heading}>SignUp</h1>
             <InputControl label = "Name" placeholder = "Enter your name" onChange={(event)=>
@@ -62,6 +63,7 @@ const SignUp = () => {
             </div>
         </div>
     </div>
+    
   )
 }
 
