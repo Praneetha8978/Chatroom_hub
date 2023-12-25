@@ -13,7 +13,7 @@ const Chat = () => {
   const {chatId} = useParams();
   const rooms = useContext(RoomsContext);
   if(!rooms){
-    return <Loader center vertical size = "md" content = "Loading..." speed='slow'></Loader>
+    return <Loader center vertical size = "md" content = "Loading..." speed='slow' ></Loader>
   }
 
   const currentRoom = rooms.find(room => room.id === chatId);

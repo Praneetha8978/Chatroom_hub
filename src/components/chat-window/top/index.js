@@ -12,11 +12,11 @@ const Top = () => {
   return (
     <div>
       <div className='d-flex justify-content-between align-items-center'>
-        <h4>
+        <h4 className='text-disappear d-flex align-items-center'>
           <Link to="/" className={isMobile ? 'd-inline-block p-0 mr-2 text-blue link-unstyled':'d-none'}><ArrowLeftIcon color='blue'/></Link>
           <span className='text-disappear'>{name}</span>
         </h4>
-        <ButtonToolbar>
+        <ButtonToolbar >
           <span>todo</span>
         </ButtonToolbar>
       </div>

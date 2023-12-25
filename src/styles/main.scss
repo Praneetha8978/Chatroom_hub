@@ -127,3 +127,47 @@ $chat-b: 65px;
     }
   }
 }
+
+#chat-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#chat-input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#send-button {
+  padding: 8px;
+  border: 1px solid #4CAF50;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lucky1{
+  overflow: hidden;
+}
+
+.lucky2{
+  display: inline-block;
+  visibility: visible;
+}
+
+.input-container {
+  display: flex;
+}
+
+.input-container > * {
+  flex: 1;
+}

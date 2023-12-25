@@ -1,6 +1,6 @@
-import './App.css';
 import './styles/main.scss';
 import 'rsuite/dist/rsuite.min.css';
+import './App.css';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
