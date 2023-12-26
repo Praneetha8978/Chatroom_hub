@@ -4,30 +4,31 @@ import { ProContext } from '../../context/ProfileContext';
 import EditableInput from '../EditableInput';
 import '../../styles/main.scss';
 import {database} from '../../misc/firebase';
-import {ref,set} from 'firebase/database';
+import {ref,set,update} from 'firebase/database';
 import ProviderBlock from './ProviderBlock';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AvatarUploadBtn from './AvatarUploadBtn';
+import {getUserUpdate} from '../../misc/helper';
 
 const Dashboard = ({onSignOut}) => {
   const {profile} = useContext(ProContext);
-  const onSave = async(newData) => {
-    const userRef = ref(database, `/profiles/${profile.uid}/name`);
-    set(userRef, newData)
-    .then(() => {
+  const onSave = async (newData) => {
+    try {
+      const updates = await getUserUpdate(profile.uid, 'name', newData, database);
+      console.log("updatesDashboard", updates);
+      await update(ref(database), updates);
       toast.success('User name set successfully', {
-        position: toast.POSITION.TOP_CENTER, 
+        position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
       });
-    })
-    .catch((error) => {
-      toast.error(`Error: ${error.message}`, {
-        position: toast.POSITION.TOP_CENTER, 
-        autoClose: 3000, 
+    } catch (err) {
+      toast.error(`Error: ${err.message}`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
       });
-    });
-  }
+    }
+  };
 
   return (
     <>

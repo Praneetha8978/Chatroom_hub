@@ -6,12 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AvatarEditor from 'react-avatar-editor';
 import {storage,database} from '../../misc/firebase';
-import {ref as databaseRef,set} from 'firebase/database';
+import {ref as databaseRef,set,update} from 'firebase/database';
 import {ref as storageRef,uploadBytes,getDownloadURL} from 'firebase/storage';
 import { ProContext } from '../../context/ProfileContext';
 import ProfileAvatar from '../ProfileAvatar';
 import '../../styles/main.scss';
 import '../../styles/utility.scss';
+import {getUserUpdate} from '../../misc/helper';
 
 const fileInputTypes = ".png, .jpeg, .jpg";
 const acceptedFileTypes = ['image/png','image/jpeg','image/pjpeg','image/jpg']
@@ -61,8 +62,10 @@ const AvatarUploadBtn = () => {
       });
       await uploadAvatarResult;
       const downloadUrl = await getDownloadURL(avatarFileRef);
-      const userAvatarRef = databaseRef(database, `/profiles/${profile.uid}/avatar`);
-      await set(userAvatarRef, downloadUrl);
+      const updates = await getUserUpdate(profile.uid,'avatar',downloadUrl,database);
+      console.log("udatesAvatar"+updates);
+      await update(databaseRef(database), updates);
+      
       setIsLoading(false);
       toast.success('Avatar has been uploaded', {
         position: toast.POSITION.TOP_CENTER,
