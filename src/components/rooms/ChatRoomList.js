@@ -36,6 +36,7 @@ const ChatRoomList = ({ aboveElHeight }) => {
                 id={room.id}
                 name={room.name}
                 createdAt={room.createdAt}
+                lastMessage={room.lastMessage}
               />
             </Nav.Item>
           ))}
