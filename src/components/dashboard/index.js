@@ -32,6 +32,7 @@ const Dashboard = ({onSignOut}) => {
 
   return (
     <>
+      {console.log("profile",profile)}
       <Drawer.Header>
         <Drawer.Title>
             Dashboard

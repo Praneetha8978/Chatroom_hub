@@ -15,7 +15,9 @@ const Messages = () => {
   useEffect(()=>{
     const messagesRef = ref(database,'/messages');
     const queryGet = query(messagesRef, orderByChild('roomId'), equalTo(chatId));
+    console.log("query"+" "+queryGet);
     onValue(queryGet, (snapshot) => {
+      console.log("inside messages yay");
       const data = transformToArrWithId(snapshot.val());
       setMessages(data);
     });
