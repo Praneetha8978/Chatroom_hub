@@ -6,7 +6,7 @@ import '../styles/main.scss';
 import { serverTimestamp,ref,push,set } from 'firebase/database';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { database } from '../misc/firebase';
+import { auth, database } from '../misc/firebase';
 
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
@@ -39,7 +39,9 @@ const CreateRoomBtnModel = () => {
     const newRoomdata = {
         ...formValue,
         createdAt : serverTimestamp(),
-
+        admins : {
+          [auth.currentUser.uid] : true,
+        }
     }
     try{
         const roomsRef = await ref(database, 'rooms');

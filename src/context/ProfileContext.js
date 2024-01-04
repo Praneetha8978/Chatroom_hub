@@ -26,6 +26,7 @@ export const ProfileContext = ({children}) => {
         const unsub = onAuthStateChanged(auth, (user) => {
         console.log('Auth State Changed:', user);
         if (user) {
+          console.log("userIdForRooms"+" "+user.uid);
           userStatusRef = ref(database,`/status/${user.uid}`);
           userRef = ref(database, `/profiles/${user.uid}`);
           const onValueChange = onValue(userRef, async (snapshot) => {
