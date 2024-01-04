@@ -4,7 +4,7 @@ import EditIcon from '@rsuite/icons/Edit';
 import CloseIcon from '@rsuite/icons/Close';
 import CheckIcon from '@rsuite/icons/Check';
 
-const EditableInput = ({initialValue,onSave,label = null,placeholder = "Write Your name",emptyMsg = "Input is empty",...inputProps}) => {
+const EditableInput = ({initialValue,onSave,label = null,placeholder = "Write Your name",emptyMsg = "Input is empty",wrapperClassName = "",...inputProps}) => {
   const [input,setInput] = useState(initialValue);
   const [isEditable,setIsEditable] = useState(false);
 
@@ -32,7 +32,7 @@ const EditableInput = ({initialValue,onSave,label = null,placeholder = "Write Yo
   }
 
   return (
-    <div>
+    <div className={wrapperClassName}>
       {label}
       <InputGroup>
         <Input {...inputProps} disabled = {!isEditable} placeholder={placeholder} value = {input} onChange={onInputChange}/>

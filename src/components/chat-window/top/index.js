@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ButtonToolbar } from 'rsuite';
 import '../../../styles/main.scss';
 import RoomInfoBtnModel from './RoomInfoBtnModel';
+import EditRoomBtnDrawer from './EditRoomBtnDrawer';
 
 const Top = () => {
   const name = useCurrentRoom(v => v.name);
@@ -17,7 +18,7 @@ const Top = () => {
           <span className='text-disappear'>{name}</span>
         </h4>
         <ButtonToolbar >
-          <span>todo</span>
+          <EditRoomBtnDrawer/>
         </ButtonToolbar>
       </div>
       <div className='d-flex justify-content-between align-items-center'>
