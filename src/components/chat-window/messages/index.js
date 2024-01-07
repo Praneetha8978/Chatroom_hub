@@ -1,7 +1,7 @@
 import React,{useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {auth,database} from '../../../misc/firebase';
-import {ref,orderByChild,query,equalTo,onValue,off,runTransaction} from "firebase/database";
+import {ref,orderByChild,query,equalTo,onValue,off,runTransaction,update} from "firebase/database";
 import {transformToArrWithId} from '../../../misc/helper';
 import MessageItem from './MessageItem';
 import { ToastContainer, toast } from 'react-toastify';
@@ -76,10 +76,40 @@ const Messages = () => {
     });
   },[]);
 
+  const handleDelete = useCallback(async(msgId)=>{
+    if(!window.confirm('Delete this message?')){
+      return;
+    }
+    const isLast = messages[messages.length - 1].id == msgId;
+    const updates = {};
+    updates[`/messages/${msgId}`] = null;
+    if(isLast && messages.length > 1){
+      updates[`/rooms/${chatId}/lastMessage`] = {
+        ...messages[messages.length - 2],
+        msgId : messages[messages.length - 2].id
+      }
+    }
+    if(isLast && messages.length === 1){
+      updates[`/rooms/${chatId}/lastMessage`] = null;
+    }
+    try{
+      await update(ref(database),updates);
+      toast.info('Message has been deleted', {
+        position: toast.POSITION.TOP_CENTER, // Align to the center
+        autoClose: 4000, // Auto-close the alert after 5000 milliseconds (5 seconds)
+      });
+    }catch(err){
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_CENTER, // Align to the center
+        autoClose: 4000, // Auto-close the alert after 5000 milliseconds (5 seconds)
+      });
+    }
+  },[chatId,messages])
+
   return (
     <ul className='msg-list custom-scroll'>
       {isChatEmpty && <li>No messages yet...</li>}
-      {canShowMessages && messages.map(msg => <MessageItem key = {msg.id} message = {msg} handleAdmin={handleAdmin} handleLike={handleLike}/>)}
+      {canShowMessages && messages.map(msg => <MessageItem key = {msg.id} message = {msg} handleAdmin={handleAdmin} handleLike={handleLike} handleDelete={handleDelete}/>)}
     </ul>
   )
 }

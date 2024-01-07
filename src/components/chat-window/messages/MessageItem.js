@@ -11,7 +11,7 @@ import IconBtnControl from './IconBtnControl';
 import {useHover} from '../../../misc/custom-hooks';
 
 
-const MessageItem = ({message,handleAdmin,handleLike}) => {
+const MessageItem = ({message,handleAdmin,handleLike,handleDelete}) => {
   const {author,createdAt,text,likes,likeCount} = message;
   const [selfRef, isHovered] = useHover();
   const isMobile = window.innerWidth <= 767;
@@ -41,6 +41,11 @@ const MessageItem = ({message,handleAdmin,handleLike}) => {
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"/>
           <IconBtnControl {...(isLiked ? {color : 'red',appearance:'primary'} : {})} isVisible = {canShowIcons} iconName = "heart" tooltip = "Like this message" onClick = {()=>{handleLike(message.id)}} badgeContent={likeCount}/>
+          {
+            isAuthor && (
+              <IconBtnControl  isVisible = {canShowIcons} iconName = "close" tooltip = "Delete this message" onClick = {()=>{handleDelete(message.id)}} />
+            )
+          }
       </div>
       <div>
         <span className='word-break-all'>{text}</span>
