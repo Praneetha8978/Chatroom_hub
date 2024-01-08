@@ -7,6 +7,7 @@ import { ProContext } from '../../../context/ProfileContext';
 import {useParams} from 'react-router-dom';
 import {database} from '../../../misc/firebase';
 import { ToastContainer, toast } from 'react-toastify';
+import AttachmentBtnModal from './AttachmentBtnModal';
 
 function assembleMessage(profile,chatId){
   return{
@@ -74,9 +75,38 @@ const Bottom = () => {
     }
   }
 
+  const afterUpload = useCallback(async(files)=>{
+    setIsLoading(true);
+    const updates = {};
+    files.forEach(file=>{
+      const msgData = assembleMessage(profile,chatId);
+      msgData.file = file;
+      const messageId = push(ref(database, 'messages'));
+      const newMessageKey = messageId.key;
+      updates[`/messages/${newMessageKey}`] = msgData;
+
+    })
+    const lastMsgId = Object.keys(updates).pop();
+    updates[`/rooms/${chatId}/lastMessage`] = {
+      ...updates[lastMsgId],
+      msgId : lastMsgId,
+    };
+    try{
+      await update(ref(database), updates);
+      setIsLoading(false);
+    }catch(err){
+      setIsLoading(false);
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    }
+  },[chatId,profile])
+
   return (
     <div>
       <InputGroup style={{width : "66%"}}>
+        <AttachmentBtnModal afterUpload={afterUpload}/>
         <Input name='chat' placeholder='Write new messages here.....' value = {input} onChange={onInputChange} onKeyDown={onKeyDown} style={{width:"66%",color: 'black', fontWeight: 'bolder' }}/>
         <InputGroup.Button title="Send Message" color='blue' appearance='primary' onClick={onSendClick} disabled={isLoading}>
           <SendIcon />
