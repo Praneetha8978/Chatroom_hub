@@ -24,7 +24,7 @@ const RoomItem = ({ id, name, createdAt,lastMessage }) => {
                 {lastMessage.author.name}
               </div>
               <span>
-                {lastMessage.text}
+                {lastMessage.text || lastMessage.file.name}
               </span>
             </div>
           </> :

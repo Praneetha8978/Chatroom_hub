@@ -1,7 +1,8 @@
 import React,{useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {auth,database} from '../../../misc/firebase';
+import {auth,database, storage} from '../../../misc/firebase';
 import {ref,orderByChild,query,equalTo,onValue,off,runTransaction,update} from "firebase/database";
+import {ref as storageRef,deleteObject} from "firebase/storage";
 import {transformToArrWithId} from '../../../misc/helper';
 import MessageItem from './MessageItem';
 import { ToastContainer, toast } from 'react-toastify';
@@ -76,7 +77,7 @@ const Messages = () => {
     });
   },[]);
 
-  const handleDelete = useCallback(async(msgId)=>{
+  const handleDelete = useCallback(async(msgId,file)=>{
     if(!window.confirm('Delete this message?')){
       return;
     }
@@ -99,10 +100,21 @@ const Messages = () => {
         autoClose: 4000, // Auto-close the alert after 5000 milliseconds (5 seconds)
       });
     }catch(err){
-      toast.error(err.message, {
+      return toast.error(err.message, {
         position: toast.POSITION.TOP_CENTER, // Align to the center
         autoClose: 4000, // Auto-close the alert after 5000 milliseconds (5 seconds)
       });
+    }
+    if(file){
+      try{
+        const fileRef = await storageRef(storage,file.url);
+        await deleteObject(fileRef);
+      }catch(err){
+        toast.error(err.message, {
+          position: toast.POSITION.TOP_CENTER, // Align to the center
+          autoClose: 4000, // Auto-close the alert after 5000 milliseconds (5 seconds)
+        });
+      }
     }
   },[chatId,messages])
 

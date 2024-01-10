@@ -24,12 +24,12 @@ const AttachmentBtnModal = ({afterUpload}) => {
   const onUpload = async () => {
     try{
         const uploadPromises = fileList.map(f => {
-            const storageRef = ref(storage, `chatId/${chatId}/${Date.now() + f.name}`);
+            const storageRef = ref(storage, `chatId/${chatId}/${Date.now()+f.name}`);
             const metadata = {
-                cacheControl: 'public,max-age=' + (3600 * 24 * 3),
+                cacheControl: `public,max-age=${3600*24*3}`,
             };
 
-            return uploadBytes(storageRef, f.blobfile, metadata);
+            return uploadBytes(storageRef, f.blobFile, metadata);
         })
         console.log("uploadPromises"+uploadPromises);
         const uploadSnapshots = await Promise.all(uploadPromises);
@@ -37,9 +37,9 @@ const AttachmentBtnModal = ({afterUpload}) => {
             return{
                 contentType : snap.metadata.contentType,
                 name : snap.metadata.name,
-                url : await getDownloadURL(snap.ref)
-            }
-        })
+                url : await getDownloadURL(snap.ref),
+            };
+        });
 
         const files = await Promise.all(shapePromises);
         await afterUpload(files);
@@ -71,7 +71,7 @@ const AttachmentBtnModal = ({afterUpload}) => {
                 onChange={onChange}
                 multiple
                 listType="picture-text"
-                className='w-100'
+                className="w-100"
                 disabled = {isLoading}
             />
         </Modal.Body>

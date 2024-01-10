@@ -8,6 +8,7 @@ import {useParams} from 'react-router-dom';
 import {database} from '../../../misc/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import AttachmentBtnModal from './AttachmentBtnModal';
+import AudioMsgBtn from './AudioMsgBtn';
 
 function assembleMessage(profile,chatId){
   return{
@@ -107,6 +108,7 @@ const Bottom = () => {
     <div>
       <InputGroup style={{width : "66%"}}>
         <AttachmentBtnModal afterUpload={afterUpload}/>
+        <AudioMsgBtn afterUpload={afterUpload}/>
         <Input name='chat' placeholder='Write new messages here.....' value = {input} onChange={onInputChange} onKeyDown={onKeyDown} style={{width:"66%",color: 'black', fontWeight: 'bolder' }}/>
         <InputGroup.Button title="Send Message" color='blue' appearance='primary' onClick={onSendClick} disabled={isLoading}>
           <SendIcon />
