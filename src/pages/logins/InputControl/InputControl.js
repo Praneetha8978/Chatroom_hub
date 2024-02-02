@@ -5,7 +5,7 @@ const InputControl = (props) => {
   return (
     <div className={styles.container}>
       {props.label && <label>{props.label}</label>}
-      <input type="text" {...props}/>
+      <input type = {props.label === "Password" ? "password" : "text"} {...props}/>
     </div>
   )
 }

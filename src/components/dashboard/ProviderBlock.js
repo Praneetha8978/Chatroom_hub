@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {auth} from '../../misc/firebase'
+import React,{useState} from 'react';
+import {auth} from '../../misc/firebase';
 import {Tag,Button} from 'rsuite';
 import { FaGoogle } from 'react-icons/fa';
 import { GoogleAuthProvider,FacebookAuthProvider,linkWithPopup,unlink} from 'firebase/auth';
@@ -99,7 +99,6 @@ const ProviderBlock = () => {
             </Button>
         }
       </div>
-      <ToastContainer />
     </div>
   )
 }

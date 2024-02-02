@@ -56,7 +56,6 @@ const DashboardToggle = () => {
       <Drawer open = {isOpen} onClose = {close} placement='left'  backdrop>
         <Dashboard onSignOut = {onSignOut}/>
       </Drawer>
-      <ToastContainer/>
     </>
   )
 }

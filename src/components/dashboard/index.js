@@ -51,7 +51,6 @@ const Dashboard = ({onSignOut}) => {
           Sign Out
         </Button>
       </Drawer.Body>
-      <ToastContainer />
     </>
   )
 }

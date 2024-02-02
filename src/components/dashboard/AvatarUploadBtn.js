@@ -112,8 +112,7 @@ const AvatarUploadBtn = () => {
             <Button appearance='ghost' block onClick = {onUploadClick} disabled = {isLoading}>Upload new avatar</Button>
           </Modal.Footer>
         </Modal>
-       </div>
-       <ToastContainer />
+       </div> 
     </div>
   )
 }
