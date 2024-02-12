@@ -39,7 +39,7 @@ export async function getUserUpdate(userId, keyToUpdate, value, db) {
 
   export function transformToArr(snapVal){
     return snapVal ? Object.keys(snapVal) : [];
-  }
+  } 
  
   export function groupBy(array,groupingKeyFn){
     return array.reduce((result,item)=>{
